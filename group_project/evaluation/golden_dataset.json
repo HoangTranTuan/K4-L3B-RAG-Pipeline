@@ -1,0 +1,107 @@
+[
+    {
+      "question": "Hóa đơn điện tử khởi tạo từ máy tính tiền mang lại những lợi ích gì cho hộ kinh doanh?",
+      "expected_answer": "Hóa đơn điện tử khởi tạo từ máy tính tiền giúp minh bạch giao dịch, giảm chi phí, hỗ trợ quản lý và tra cứu hóa đơn dễ dàng, đồng thời nâng cao uy tín với khách hàng.",
+      "expected_context": "Việc sử dụng hóa đơn điện tử khởi tạo từ máy tính tiền giúp minh bạch hóa giao dịch, giảm chi phí, hỗ trợ người nộp thuế quản lý hiệu quả, tra cứu dễ dàng và nâng cao uy tín với khách hàng.",
+      "source_title": "Lợi ích thiết thực khi sử dụng hóa đơn điện tử khởi tạo từ máy tính tiền",
+      "source_url": "https://thanglong.baochinhphu.vn/loi-ich-thiet-thuc-khi-su-dung-hoa-don-dien-tu-khoi-tao-tu-may-tinh-tien-103250509112012314.htm"
+    },
+    {
+      "question": "Theo bài viết, hộ kinh doanh có doanh thu từ mức nào thuộc nhóm áp dụng hóa đơn điện tử khởi tạo từ máy tính tiền?",
+      "expected_answer": "Bài viết nêu hộ kinh doanh và cá nhân kinh doanh có doanh thu từ 1 tỷ đồng mỗi năm trở lên thuộc nhóm áp dụng hóa đơn điện tử khởi tạo từ máy tính tiền.",
+      "expected_context": "Đối tượng áp dụng bao gồm hộ kinh doanh và cá nhân kinh doanh có doanh thu từ 1 tỷ đồng/năm trở lên.",
+      "source_title": "Lợi ích thiết thực khi sử dụng hóa đơn điện tử khởi tạo từ máy tính tiền",
+      "source_url": "https://thanglong.baochinhphu.vn/loi-ich-thiet-thuc-khi-su-dung-hoa-don-dien-tu-khoi-tao-tu-may-tinh-tien-103250509112012314.htm"
+    },
+    {
+      "question": "Người nộp thuế có thể tra cứu hóa đơn điện tử bằng những cách nào?",
+      "expected_answer": "Người nộp thuế có thể tra cứu qua website hóa đơn điện tử của cơ quan thuế hoặc ứng dụng tra cứu hóa đơn điện tử trên điện thoại di động.",
+      "expected_context": "Hóa đơn điện tử có thể được tra cứu qua website hoadondientu.gdt.gov.vn hoặc ứng dụng tra cứu hóa đơn điện tử trên điện thoại di động.",
+      "source_title": "Lợi ích thiết thực khi sử dụng hóa đơn điện tử khởi tạo từ máy tính tiền",
+      "source_url": "https://thanglong.baochinhphu.vn/loi-ich-thiet-thuc-khi-su-dung-hoa-don-dien-tu-khoi-tao-tu-may-tinh-tien-103250509112012314.htm"
+    },
+    {
+      "question": "Vì sao thương mại điện tử làm tăng nguy cơ thất thu thuế?",
+      "expected_answer": "Thương mại điện tử phát triển nhanh, giao dịch diễn ra trên môi trường số và đa nền tảng nên nếu thiếu cơ chế quản lý phù hợp thì nguy cơ thất thu thuế cao hơn so với kinh doanh truyền thống.",
+      "expected_context": "Sự phát triển nhanh của thương mại điện tử đặt ra nhiều thách thức cho công tác quản lý thuế và có thể làm tăng nguy cơ thất thu nếu thiếu cơ chế quản lý phù hợp.",
+      "source_title": "Thuế thương mại điện tử: Bài toán quản lý và chống thất thu",
+      "source_url": "https://baochinhphu.vn/thue-thuong-mai-dien-tu-bai-toan-quan-ly-va-chong-that-thu-102260811105246558.htm"
+    },
+    {
+      "question": "Từ ngày 1/7/2026, những văn bản nào tạo khung pháp lý mới cho hoạt động thương mại điện tử?",
+      "expected_answer": "Luật Thương mại điện tử số 122/2025/QH15 và Nghị định số 248/2026/NĐ-CP có hiệu lực từ ngày 1/7/2026, tạo khung pháp lý mới cho hoạt động thương mại điện tử.",
+      "expected_context": "Từ ngày 01/7/2026, Luật Thương mại điện tử số 122/2025/QH15 và Nghị định số 248/2026/NĐ-CP có hiệu lực thi hành, tạo khung pháp lý mới cho hoạt động thương mại điện tử tại Việt Nam.",
+      "source_title": "Thuế thương mại điện tử: Bài toán quản lý và chống thất thu",
+      "source_url": "https://baochinhphu.vn/thue-thuong-mai-dien-tu-bai-toan-quan-ly-va-chong-that-thu-102260811105246558.htm"
+    },
+    {
+      "question": "Số thu thuế từ các tổ chức và cá nhân có hoạt động thương mại điện tử trong 6 tháng đầu năm 2026 đạt khoảng bao nhiêu?",
+      "expected_answer": "Bài viết nêu số thu thuế từ các tổ chức, cá nhân kinh doanh có hoạt động thương mại điện tử trong 6 tháng đầu năm 2026 đạt gần 167,9 nghìn tỷ đồng.",
+      "expected_context": "Số liệu quản lý thuế ghi nhận kết quả thu thuế từ các tổ chức, cá nhân có hoạt động thương mại điện tử trong 06 tháng đầu năm 2026 đạt gần 167,9 nghìn tỷ đồng.",
+      "source_title": "Thuế thương mại điện tử: Bài toán quản lý và chống thất thu",
+      "source_url": "https://baochinhphu.vn/thue-thuong-mai-dien-tu-bai-toan-quan-ly-va-chong-that-thu-102260811105246558.htm"
+    },
+    {
+      "question": "Bộ tài liệu do Cục Thuế phát hành ngày 20/7/2026 tập trung vào những nội dung nào?",
+      "expected_answer": "Bộ tài liệu tập trung vào thuế và hóa đơn điện tử trong thương mại điện tử và bán hàng đa kênh, bao gồm các điểm mới và những nội dung người nộp thuế cần biết, cần thực hiện.",
+      "expected_context": "Cục Thuế công bố bộ tài liệu về thuế và hóa đơn điện tử trong thương mại điện tử và bán hàng đa kênh, tập trung vào những điểm mới và những nội dung người nộp thuế cần biết, cần thực hiện.",
+      "source_title": "Ra mắt bộ tài liệu và giải pháp hỗ trợ tuân thủ chính sách thuế",
+      "source_url": "https://cms.baochinhphu.vn/ra-mat-bo-tai-lieu-va-giai-phap-ho-tro-tuan-thu-chinh-sach-thue-102260720175535264.htm"
+    },
+    {
+      "question": "Bộ tài liệu hỗ trợ tuân thủ chính sách thuế hướng tới những nhóm đối tượng nào?",
+      "expected_answer": "Bộ tài liệu hướng tới hộ kinh doanh, cá nhân và doanh nghiệp nhằm giúp các đối tượng này cập nhật và thực hiện đúng các quy định mới về thuế và hóa đơn điện tử.",
+      "expected_context": "Bộ tài liệu điện tử được phát hành nhằm giúp hộ kinh doanh, cá nhân và doanh nghiệp cập nhật quy định mới có hiệu lực từ ngày 1/7/2026.",
+      "source_title": "Ra mắt bộ tài liệu và giải pháp hỗ trợ tuân thủ chính sách thuế",
+      "source_url": "https://cms.baochinhphu.vn/ra-mat-bo-tai-lieu-va-giai-phap-ho-tro-tuan-thu-chinh-sach-thue-102260720175535264.htm"
+    },
+    {
+      "question": "Người nộp thuế có thể tiếp cận bộ tài liệu hướng dẫn của Cục Thuế bằng cách nào?",
+      "expected_answer": "Người nộp thuế có thể quét mã QR do Cục Thuế cung cấp để truy cập, nghiên cứu và khai thác bộ tài liệu.",
+      "expected_context": "Người nộp thuế có thể quét mã QR do Cục Thuế cung cấp để truy cập, nghiên cứu và khai thác tài liệu.",
+      "source_title": "Ra mắt bộ tài liệu và giải pháp hỗ trợ tuân thủ chính sách thuế",
+      "source_url": "https://cms.baochinhphu.vn/ra-mat-bo-tai-lieu-va-giai-phap-ho-tro-tuan-thu-chinh-sach-thue-102260720175535264.htm"
+    },
+    {
+      "question": "Hộ kinh doanh có doanh thu trên 1 tỷ đồng một năm phải thực hiện yêu cầu gì về hóa đơn điện tử?",
+      "expected_answer": "Theo bài viết, hộ kinh doanh có doanh thu trên 1 tỷ đồng mỗi năm hoặc hộ kê khai thuế thuộc diện sử dụng hóa đơn điện tử từ máy tính tiền.",
+      "expected_context": "Đại diện Cục Thuế cho biết những hộ có doanh thu trên 1 tỷ đồng/năm hoặc kê khai thuế sẽ thuộc diện dùng hóa đơn điện tử từ máy tính tiền.",
+      "source_title": "Gỡ vướng cho hộ kinh doanh khi chuyển từ thuế khoán sang hóa đơn điện tử",
+      "source_url": "https://www2.en.baochinhphu.vn/go-vuong-cho-ho-kinh-doanh-khi-chuyen-tu-thue-khoan-sang-hoa-don-dien-tu-102250617190605619.htm"
+    },
+    {
+      "question": "Hộ kinh doanh đăng ký sử dụng hóa đơn điện tử từ máy tính tiền theo mẫu nào?",
+      "expected_answer": "Hộ kinh doanh thực hiện đăng ký theo mẫu 01/ĐKTĐ-HĐĐT trên cổng hóa đơn điện tử của cơ quan thuế.",
+      "expected_context": "Về thủ tục đăng ký, hộ kinh doanh thực hiện qua mẫu 01/ĐKTĐ-HĐĐT trên cổng hoadondientu.gdt.gov.vn.",
+      "source_title": "Gỡ vướng cho hộ kinh doanh khi chuyển từ thuế khoán sang hóa đơn điện tử",
+      "source_url": "https://www2.en.baochinhphu.vn/go-vuong-cho-ho-kinh-doanh-khi-chuyen-tu-thue-khoan-sang-hoa-don-dien-tu-102250617190605619.htm"
+    },
+    {
+      "question": "Khi chuyển từ thuế khoán sang kê khai, hộ kinh doanh cần điều chỉnh tờ khai theo mẫu nào?",
+      "expected_answer": "Hộ kinh doanh cần điều chỉnh tờ khai khoán theo mẫu 01/CNKD và có thể thực hiện trực tuyến trên Cổng thuế điện tử hoặc Cổng dịch vụ công quốc gia.",
+      "expected_context": "Khi muốn chuyển từ thuế khoán sang kê khai, người dân điều chỉnh tờ khai khoán theo mẫu 01/CNKD, có thể thực hiện online trên Cổng thuế điện tử hoặc Cổng dịch vụ công quốc gia.",
+      "source_title": "Gỡ vướng cho hộ kinh doanh khi chuyển từ thuế khoán sang hóa đơn điện tử",
+      "source_url": "https://www2.en.baochinhphu.vn/go-vuong-cho-ho-kinh-doanh-khi-chuyen-tu-thue-khoan-sang-hoa-don-dien-tu-102250617190605619.htm"
+    },
+    {
+      "question": "Hộ kinh doanh do ai đăng ký thành lập?",
+      "expected_answer": "Hộ kinh doanh do một cá nhân hoặc các thành viên hộ gia đình đăng ký thành lập và chịu trách nhiệm bằng toàn bộ tài sản của mình đối với hoạt động kinh doanh của hộ.",
+      "expected_context": "Hộ kinh doanh do một cá nhân hoặc các thành viên hộ gia đình đăng ký thành lập và chịu trách nhiệm bằng toàn bộ tài sản của mình đối với hoạt động kinh doanh của hộ.",
+      "source_title": "Quy định mới về đăng ký hộ kinh doanh",
+      "source_url": "https://baochinhphu.vn/quy-dinh-moi-ve-dang-ky-ho-kinh-doanh-102250702150908133.htm"
+    },
+    {
+      "question": "Điều kiện để hộ kinh doanh được cấp Giấy chứng nhận đăng ký hộ kinh doanh là gì?",
+      "expected_answer": "Hộ kinh doanh phải có ngành nghề không bị cấm đầu tư kinh doanh, tên hộ kinh doanh đúng quy định, hồ sơ hợp lệ và nộp đủ lệ phí theo quy định.",
+      "expected_context": "Hộ kinh doanh được cấp Giấy chứng nhận đăng ký hộ kinh doanh khi ngành nghề không bị cấm, tên hộ đúng quy định, hồ sơ hợp lệ và đã nộp đủ lệ phí.",
+      "source_title": "Quy định mới về đăng ký hộ kinh doanh",
+      "source_url": "https://baochinhphu.vn/quy-dinh-moi-ve-dang-ky-ho-kinh-doanh-102250702150908133.htm"
+    },
+    {
+      "question": "Hồ sơ đăng ký thành lập hộ kinh doanh được nộp ở đâu?",
+      "expected_answer": "Chủ hộ kinh doanh hoặc người được ủy quyền gửi hồ sơ đến Cơ quan đăng ký kinh doanh cấp xã nơi hộ kinh doanh đăng ký trụ sở.",
+      "expected_context": "Chủ hộ kinh doanh hoặc người được ủy quyền thực hiện thủ tục đăng ký hộ kinh doanh gửi hồ sơ đăng ký thành lập hộ kinh doanh đến Cơ quan đăng ký kinh doanh cấp xã nơi hộ kinh doanh đăng ký trụ sở.",
+      "source_title": "Quy định mới về đăng ký hộ kinh doanh",
+      "source_url": "https://baochinhphu.vn/quy-dinh-moi-ve-dang-ky-ho-kinh-doanh-102250702150908133.htm"
+    }
+  ]

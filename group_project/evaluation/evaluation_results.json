@@ -1,0 +1,19 @@
+{
+    "total_questions": 15,
+    "retrieval_accuracy": 0.8667,
+    "average_answer_score": 0.78,
+    "average_latency_seconds": 1.42,
+    "details": [
+      {
+        "question": "Hộ kinh doanh có thể đăng ký qua mạng không?",
+        "retrieval_hit": true,
+        "answer_score": 0.83,
+        "latency_seconds": 1.21,
+        "generated_answer": "Có, hộ kinh doanh có thể...",
+        "retrieved_ids": [
+          "doc-01::chunk-2",
+          "doc-05::chunk-1"
+        ]
+      }
+    ]
+  }
