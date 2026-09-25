@@ -64,6 +64,7 @@ streamlit run app.py
 
 ## Tài liệu
 
+- [Task tracking](TASKS.md): Danh sách toàn bộ các task cần hoàn thành, phân công và tiêu chuẩn nghiệm thu.
 - [Module contracts](docs/MODULE_CONTRACTS.md): schema, interface và invariant mà code/test nên tuân theo.
 - [Step-by-step guide](docs/STEP_BY_STEP.md): thứ tự triển khai và tiêu chí hoàn thành từng bước.
 - [Grading rubric](docs/GRADING_RUBRIC.md): Rubric thang điểm.
