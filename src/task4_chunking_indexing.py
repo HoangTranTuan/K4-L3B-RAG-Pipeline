@@ -28,8 +28,6 @@ if sys.platform == "win32":
 
 load_dotenv()
 
-STANDARDIZED_DIR = Path(__file__).parent.parent / "data" / "standardized"
-CHROMA_DIR = Path(__file__).parent.parent / "chroma_db"
 
 # Cấu hình tham số chunking
 CHUNK_SIZE = 500
@@ -116,6 +114,9 @@ def embed_texts(texts: list[str]) -> list[list[float]]:
     else:
         raise ValueError(f"Unsupported EMBEDDING_PROVIDER: {provider}")
 
+# ============================================================
+# ChromaDB
+# ============================================================
 
 def get_collection():
     """Mở Chroma collection dùng cosine distance."""
@@ -229,6 +230,312 @@ def index_to_vectorstore(chunks: list[dict]) -> None:
             metadatas=metadatas,
         )
 
+        raw_text = path.read_text(
+            encoding="utf-8",
+            errors="replace",
+        )
+
+        frontmatter, content = (
+            _parse_frontmatter(
+                raw_text
+            )
+        )
+
+        if not content.strip():
+            continue
+
+        relative_path = (
+            path
+            .relative_to(
+                STANDARDIZED_DIR
+            )
+            .as_posix()
+        )
+
+        # ----------------------------------------------------
+        # doc_type
+        # ----------------------------------------------------
+
+        detected_doc_type = (
+            "legal"
+            if "legal"
+            in {
+                part.lower()
+                for part in path.parts
+            }
+            else "news"
+        )
+
+        doc_type = (
+            frontmatter.get(
+                "doc_type"
+            )
+            or detected_doc_type
+        )
+
+        # ----------------------------------------------------
+        # Metadata
+        # ----------------------------------------------------
+
+        source = (
+            frontmatter.get(
+                "source"
+            )
+            or path.name
+        )
+
+        title = (
+            frontmatter.get(
+                "title"
+            )
+            or path.stem.replace(
+                "_",
+                " ",
+            )
+        )
+
+        url = (
+            frontmatter.get(
+                "url"
+            )
+            or None
+        )
+
+        documents.append(
+            {
+                "id": (
+                    frontmatter.get(
+                        "id"
+                    )
+                    or _stable_document_id(
+                        relative_path
+                    )
+                ),
+                "content": content.strip(),
+                "metadata": {
+                    "source": str(
+                        source
+                    ),
+                    "title": str(
+                        title
+                    ),
+                    "doc_type": str(
+                        doc_type
+                    ),
+                    "url": (
+                        str(url)
+                        if url
+                        else None
+                    ),
+                },
+            }
+        )
+
+    return documents
+
+
+# ============================================================
+# Chunking
+# ============================================================
+
+def chunk_documents(
+    documents: list[dict],
+) -> list[dict]:
+    """
+    Chia documents thành chunks.
+
+    Yêu cầu quan trọng:
+    - giữ metadata gốc
+    - chunk_index tăng từ 0
+    - chunk ID unique
+    - chunk content không vượt quá đáng kể CHUNK_SIZE
+    """
+
+    if not documents:
+        return []
+
+    from langchain_text_splitters import (
+        RecursiveCharacterTextSplitter,
+    )
+
+    splitter = (
+        RecursiveCharacterTextSplitter(
+            chunk_size=CHUNK_SIZE,
+            chunk_overlap=CHUNK_OVERLAP,
+            length_function=len,
+            separators=[
+                "\n\n",
+                "\n",
+                ". ",
+                "; ",
+                ", ",
+                " ",
+                "",
+            ],
+        )
+    )
+
+    chunks: list[dict] = []
+
+    for document in documents:
+
+        document_id = str(
+            document["id"]
+        )
+
+        content = str(
+            document["content"]
+        )
+
+        metadata = dict(
+            document["metadata"]
+        )
+
+        split_texts = (
+            splitter.split_text(
+                content
+            )
+        )
+
+        for index, text in enumerate(
+            split_texts
+        ):
+
+            text = text.strip()
+
+            if not text:
+                continue
+
+            chunks.append(
+                {
+                    "id": (
+                        f"{document_id}"
+                        f"::chunk-{index}"
+                    ),
+                    "content": text,
+                    "metadata": {
+                        **metadata,
+                        "chunk_index": (
+                            index
+                        ),
+                    },
+                }
+            )
+
+    return chunks
+
+
+# ============================================================
+# Embed chunks
+# ============================================================
+
+def embed_chunks(
+    chunks: list[dict],
+) -> list[dict]:
+    """
+    Thêm embedding vào từng chunk.
+    Không mutate input gốc.
+    """
+
+    if not chunks:
+        return []
+
+    vectors = embed_texts(
+        [
+            chunk["content"]
+            for chunk in chunks
+        ]
+    )
+
+    if len(vectors) != len(chunks):
+        raise RuntimeError(
+            "Số embeddings không khớp số chunks"
+        )
+
+    embedded: list[dict] = []
+
+    for chunk, vector in zip(
+        chunks,
+        vectors,
+    ):
+
+        new_chunk = {
+            "id": chunk["id"],
+            "content": (
+                chunk["content"]
+            ),
+            "metadata": dict(
+                chunk["metadata"]
+            ),
+            "embedding": list(
+                vector
+            ),
+        }
+
+        embedded.append(
+            new_chunk
+        )
+
+    return embedded
+
+
+# ============================================================
+# Index
+# ============================================================
+
+def index_to_vectorstore(
+    chunks: list[dict],
+) -> None:
+    """
+    Upsert chunks vào ChromaDB.
+
+    Dùng upsert để chạy pipeline nhiều lần
+    không tạo bản ghi trùng.
+    """
+
+    if not chunks:
+        return
+
+    collection = (
+        get_collection()
+    )
+
+    batch_size = 100
+
+    for start in range(
+        0,
+        len(chunks),
+        batch_size,
+    ):
+
+        batch = chunks[
+            start:
+            start + batch_size
+        ]
+
+        collection.upsert(
+            ids=[
+                chunk["id"]
+                for chunk in batch
+            ],
+            documents=[
+                chunk["content"]
+                for chunk in batch
+            ],
+            embeddings=[
+                chunk["embedding"]
+                for chunk in batch
+            ],
+            metadatas=[
+                chunk["metadata"]
+                for chunk in batch
+            ],
+        )
+
+
+# ============================================================
+# Run full pipeline
+# ============================================================
 
 def run_pipeline() -> None:
     """Chạy load, chunk, embed và index với OpenAI embedding."""
