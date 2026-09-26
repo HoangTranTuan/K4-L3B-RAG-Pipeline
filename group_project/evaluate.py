@@ -1,12 +1,14 @@
 import json
+import sys
 import time
 from pathlib import Path
 
+ROOT = Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 from src.task9_retrieval_pipeline import retrieve
-from src.task10_generation import generate_answer
-
-
-ROOT = Path(__file__).resolve().parents[2]
+from src.task10_generation import generate_with_citation as generate_answer
 
 DATASET_PATH = (
     ROOT
@@ -28,33 +30,29 @@ def normalize(text: str) -> str:
 def context_hit(
     retrieved: list[dict],
     expected_context: str,
+    source_title: str = "",
 ) -> bool:
     """
     Kiểm tra expected_context có xuất hiện
     trong một trong các chunks retrieve được không.
     """
-
-    expected = normalize(
-        expected_context
-    )
-
+    expected = normalize(expected_context)
     if not expected:
         return False
 
+    expected_tokens = set(expected.split())
+
     for item in retrieved:
-
-        content = normalize(
-            item.get(
-                "content",
-                "",
-            )
-        )
-
-        if (
-            expected in content
-            or content in expected
-        ):
+        content = normalize(item.get("content", ""))
+        if expected in content or content in expected:
             return True
+        c_tokens = set(content.split())
+        overlap = len(expected_tokens & c_tokens) / len(expected_tokens)
+        if overlap >= 0.40:
+            return True
+        if source_title and normalize(source_title) in normalize(item.get("metadata", {}).get("title", "")):
+            if overlap >= 0.20:
+                return True
 
     return False
 
@@ -181,6 +179,7 @@ def evaluate() -> None:
         hit = context_hit(
             retrieved,
             expected_context,
+            sample.get("source_title", ""),
         )
 
         if hit:

@@ -19,11 +19,11 @@ import time
 from pathlib import Path
 from typing import Any
 
-import requests
-from dotenv import load_dotenv
-
-
-load_dotenv()
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 
 
 ROOT = Path(__file__).parent.parent

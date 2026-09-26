@@ -31,7 +31,10 @@ def retrieve(
     top_k: int = DEFAULT_TOP_K,
     score_threshold: float = SCORE_THRESHOLD,
     use_reranking: bool = True,
+    use_rerank: bool | None = None,
 ) -> list[dict]:
+    if use_rerank is not None:
+        use_reranking = use_rerank
     """
     Chạy retrieval pipeline hoàn chỉnh.
 

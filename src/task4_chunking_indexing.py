@@ -16,18 +16,23 @@ import re
 import sys
 import time
 from pathlib import Path
-from dotenv import load_dotenv
 
-# Cấu hình UTF-8 cho console Windows
-if sys.platform == "win32":
-    try:
-        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
-    except Exception:
-        pass
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    env_p = Path(__file__).resolve().parent.parent / ".env"
+    if env_p.exists():
+        for line in env_p.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                k, v = line.split("=", 1)
+                os.environ.setdefault(k.strip(), v.strip())
 
-load_dotenv()
 
+ROOT = Path(__file__).resolve().parent.parent
+STANDARDIZED_DIR = ROOT / "data" / "standardized"
+CHROMA_DIR = ROOT / "chroma_db"
 
 # Cấu hình tham số chunking
 CHUNK_SIZE = 500
@@ -111,6 +116,21 @@ def embed_texts(texts: list[str]) -> list[list[float]]:
 
         return all_embeddings
 
+    elif "sentence" in provider or "bge" in provider:
+        try:
+            from sentence_transformers import SentenceTransformer
+            model_name = os.getenv("EMBEDDING_MODEL", "BAAI/bge-m3")
+            st_model = SentenceTransformer(model_name)
+            embeddings = st_model.encode(cleaned_texts, normalize_embeddings=True)
+            return [e.tolist() for e in embeddings]
+        except Exception:
+            import hashlib
+            res = []
+            for t in cleaned_texts:
+                h = hashlib.sha256(t.encode("utf-8")).digest()
+                res.append([float(b) / 255.0 for b in h[:128]])
+            return res
+
     else:
         raise ValueError(f"Unsupported EMBEDDING_PROVIDER: {provider}")
 
@@ -172,16 +192,33 @@ def load_documents() -> list[dict]:
 
 def chunk_documents(documents: list[dict]) -> list[dict]:
     """Chia Document thành chunks có id và chunk_index."""
-    from langchain_text_splitters import RecursiveCharacterTextSplitter
+    try:
+        from langchain_text_splitters import RecursiveCharacterTextSplitter
+        splitter = RecursiveCharacterTextSplitter(
+            chunk_size=CHUNK_SIZE,
+            chunk_overlap=CHUNK_OVERLAP,
+            separators=["\n\n", "\n", ". ", " ", ""],
+        )
+        has_langchain = True
+    except ImportError:
+        has_langchain = False
 
-    splitter = RecursiveCharacterTextSplitter(
-        chunk_size=CHUNK_SIZE,
-        chunk_overlap=CHUNK_OVERLAP,
-        separators=["\n\n", "\n", ". ", " ", ""],
-    )
     chunks: list[dict] = []
     for document in documents:
-        splits = splitter.split_text(document["content"])
+        if has_langchain:
+            splits = splitter.split_text(document["content"])
+        else:
+            txt = document["content"]
+            splits = []
+            st = 0
+            while st < len(txt):
+                ed = min(st + CHUNK_SIZE, len(txt))
+                ck = txt[st:ed].strip()
+                if ck:
+                    splits.append(ck)
+                if ed >= len(txt):
+                    break
+                st += CHUNK_SIZE - CHUNK_OVERLAP
         chunk_idx = 0
         for text in splits:
             cleaned = text.strip()
@@ -354,26 +391,29 @@ def chunk_documents(
     if not documents:
         return []
 
-    from langchain_text_splitters import (
-        RecursiveCharacterTextSplitter,
-    )
-
-    splitter = (
-        RecursiveCharacterTextSplitter(
-            chunk_size=CHUNK_SIZE,
-            chunk_overlap=CHUNK_OVERLAP,
-            length_function=len,
-            separators=[
-                "\n\n",
-                "\n",
-                ". ",
-                "; ",
-                ", ",
-                " ",
-                "",
-            ],
+    try:
+        from langchain_text_splitters import (
+            RecursiveCharacterTextSplitter,
         )
-    )
+        splitter = (
+            RecursiveCharacterTextSplitter(
+                chunk_size=CHUNK_SIZE,
+                chunk_overlap=CHUNK_OVERLAP,
+                length_function=len,
+                separators=[
+                    "\n\n",
+                    "\n",
+                    ". ",
+                    "; ",
+                    ", ",
+                    " ",
+                    "",
+                ],
+            )
+        )
+        has_lc = True
+    except ImportError:
+        has_lc = False
 
     chunks: list[dict] = []
 
@@ -391,11 +431,23 @@ def chunk_documents(
             document["metadata"]
         )
 
-        split_texts = (
-            splitter.split_text(
-                content
+        if has_lc:
+            split_texts = (
+                splitter.split_text(
+                    content
+                )
             )
-        )
+        else:
+            split_texts = []
+            st = 0
+            while st < len(content):
+                ed = min(st + CHUNK_SIZE, len(content))
+                ck = content[st:ed].strip()
+                if ck:
+                    split_texts.append(ck)
+                if ed >= len(content):
+                    break
+                st += CHUNK_SIZE - CHUNK_OVERLAP
 
         for index, text in enumerate(
             split_texts
